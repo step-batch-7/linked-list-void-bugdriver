@@ -72,3 +72,27 @@ test_status assert_add_to_start()
   }
   return Fail;
 }
+
+test_status assert_insert_at()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  Status status = insert_at(list, create_int_object(20), 0);
+  if (cast_to_int(list->first->element) == 20 && status)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_insert_at_wrong_position()
+{
+  List_ptr list = create_list();
+  Status status1 = insert_at(list, create_int_object(10), 2);
+  Status status2 = insert_at(list, create_int_object(20), -2);
+  if (list->length == 0 && !status1 && !status2)
+  {
+    return Pass;
+  }
+  return Fail;
+}

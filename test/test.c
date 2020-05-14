@@ -18,6 +18,10 @@ int main(void)
   it("should add to start in empty list", assert_add_to_start_in_empty_list());
   it("should add to start in list", assert_add_to_start());
 
+  describe("insert_at()");
+  it("should insert_at given position in list", assert_insert_at());
+  it("should not insert at invalid position", assert_insert_at_wrong_position());
+
   printf("\nTEST END..............");
   return 0;
 }
