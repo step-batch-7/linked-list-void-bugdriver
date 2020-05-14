@@ -123,3 +123,28 @@ test_status assert_empty_reverse_list()
   }
   return Fail;
 }
+
+test_status assert_remove_from_start()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  add_to_list(list, create_int_object(20));
+  add_to_list(list, create_int_object(30));
+  Element removed_element = remove_from_start(list);
+  if (cast_to_int(removed_element) == 10 && list->length == 2)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_remove_from_start_empty_list()
+{
+  List_ptr list = create_list();
+  Element removed_element = remove_from_start(list);
+  if (removed_element == NULL)
+  {
+    return Pass;
+  }
+  return Fail;
+}

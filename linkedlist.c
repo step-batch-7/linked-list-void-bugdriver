@@ -93,3 +93,15 @@ List_ptr reverse(List_ptr list)
   }
   return reversed_list;
 }
+
+Element remove_from_start(List_ptr list)
+{
+  if (list == NULL || list->first == NULL)
+  {
+    return NULL;
+  }
+  Node_ptr element_to_remove = list->first;
+  list->first = list->first->next;
+  list->length -= 1;
+  return element_to_remove->element;
+}

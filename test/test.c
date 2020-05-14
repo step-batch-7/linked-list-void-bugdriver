@@ -26,6 +26,10 @@ int main(void)
   it("should reverse list", assert_reverse_list());
   it("should reverse empty list", assert_empty_reverse_list());
 
+  describe("remove_from_start()");
+  it("should remove from start in list", assert_remove_from_start());
+  it("should give null if empty list passed", assert_remove_from_start_empty_list());
+
   printf("\nTEST END..............");
   return 0;
 }
