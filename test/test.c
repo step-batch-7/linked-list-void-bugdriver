@@ -14,6 +14,10 @@ int main(void)
   it("should add to list in empty list", assert_add_to_list_if_list_empty());
   it("should add to list in list", assert_add_to_list());
 
+  describe("add_to_start()");
+  it("should add to start in empty list", assert_add_to_start_in_empty_list());
+  it("should add to start in list", assert_add_to_start());
+
   printf("\nTEST END..............");
   return 0;
 }
