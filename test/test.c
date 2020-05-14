@@ -59,6 +59,10 @@ int main(void)
   it("should filter even numbers", assert_filter_evens());
   it("should filter empty list", assert_filter_empty_list());
 
+  describe("reduce()");
+  it("should add all the numbers", assert_reduce_sum());
+  it("should add numbers along with initial value", assert_reduce_sum_with_initial());
+
   printf("\nTEST END..............");
   return 0;
 }

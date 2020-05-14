@@ -228,3 +228,15 @@ List_ptr filter(List_ptr list, Predicate predicate)
   }
   return filtered_list;
 }
+
+Element reduce(List_ptr list, Element element, Reducer reducer)
+{
+  Element reduced_value = element;
+  Node_ptr p_walk = list->first;
+  while (p_walk != NULL)
+  {
+    reduced_value = (*reducer)(reduced_value, p_walk->element);
+    p_walk = p_walk->next;
+  }
+  return reduced_value;
+}

@@ -8,6 +8,13 @@ Element create_int_object(int value)
   return number;
 }
 
+Element add_int(Element first_number, Element second_number)
+{
+  int *fn = (int *)first_number;
+  int *sn = (int *)second_number;
+  return create_int_object((*fn) + (*sn));
+}
+
 int cast_to_int(Element element)
 {
   return (*(int *)element);
@@ -168,7 +175,8 @@ test_status assert_remove_from_end()
   add_to_list(list, create_int_object(20));
   add_to_list(list, create_int_object(30));
   Element removed_element = remove_from_end(list);
-  if (cast_to_int(removed_element) == 30 && list->length == 2)
+  if (cast_to_int(removed_element) == 30 && list->length == 2 &&
+      cast_to_int(list->last->element) == 20)
   {
     return Pass;
   }
@@ -365,6 +373,36 @@ test_status assert_filter_empty_list()
   List_ptr list = create_list();
   List_ptr evens = filter(list, &is_even);
   if (evens->length == 0)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_reduce_sum()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(1));
+  add_to_list(list, create_int_object(2));
+  add_to_list(list, create_int_object(3));
+  add_to_list(list, create_int_object(4));
+  Element sum = reduce(list, create_int_object(0), &add_int);
+  if (cast_to_int(sum) == 10)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_reduce_sum_with_initial()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(1));
+  add_to_list(list, create_int_object(2));
+  add_to_list(list, create_int_object(3));
+  add_to_list(list, create_int_object(4));
+  Element sum = reduce(list, create_int_object(2), &add_int);
+  if (cast_to_int(sum) == 12)
   {
     return Pass;
   }
