@@ -13,6 +13,12 @@ int cast_to_int(Element element)
   return (*(int *)element);
 }
 
+Element increment_by_1(Element element)
+{
+  int number = *((int *)element);
+  return create_int_object(number + 1);
+}
+
 test_status assert_create_list()
 {
   List_ptr list = create_list();
@@ -310,6 +316,21 @@ test_status assert_add_unique_does_not_exist()
   add_to_list(list, create_int_object(10));
   Status status = add_unique(list, create_int_object(20), &match_int);
   if (list->length == 2 && status)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_map_increment_by_1()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  add_to_list(list, create_int_object(20));
+  List_ptr incremented_by_one = map(list, &increment_by_1);
+  if (incremented_by_one->length == 2 &&
+      cast_to_int(incremented_by_one->first->element) == 11 &&
+      cast_to_int(incremented_by_one->last->element) == 21)
   {
     return Pass;
   }

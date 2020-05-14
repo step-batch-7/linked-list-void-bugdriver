@@ -52,6 +52,9 @@ int main(void)
   it("should not add if number exist in list", assert_add_unique_if_exist());
   it("should add to end if number doesn't exist in list", assert_add_unique_does_not_exist());
 
+  describe("map()");
+  it("should increament all numbers by 1", assert_map_increment_by_1());
+
   printf("\nTEST END..............");
   return 0;
 }
