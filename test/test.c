@@ -55,6 +55,10 @@ int main(void)
   describe("map()");
   it("should increament all numbers by 1", assert_map_increment_by_1());
 
+  describe("filter()");
+  it("should filter even numbers", assert_filter_evens());
+  it("should filter empty list", assert_filter_empty_list());
+
   printf("\nTEST END..............");
   return 0;
 }

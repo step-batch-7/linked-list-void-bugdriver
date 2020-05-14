@@ -13,6 +13,12 @@ int cast_to_int(Element element)
   return (*(int *)element);
 }
 
+Status is_even(Element element)
+{
+  int value = *((int *)element);
+  return value % 2 == 0;
+}
+
 Element increment_by_1(Element element)
 {
   int number = *((int *)element);
@@ -331,6 +337,34 @@ test_status assert_map_increment_by_1()
   if (incremented_by_one->length == 2 &&
       cast_to_int(incremented_by_one->first->element) == 11 &&
       cast_to_int(incremented_by_one->last->element) == 21)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_filter_evens()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(1));
+  add_to_list(list, create_int_object(2));
+  add_to_list(list, create_int_object(3));
+  add_to_list(list, create_int_object(4));
+  List_ptr evens = filter(list, &is_even);
+  if (evens->length == 2 &&
+      cast_to_int(evens->first->element) == 2 &&
+      cast_to_int(evens->last->element) == 4)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_filter_empty_list()
+{
+  List_ptr list = create_list();
+  List_ptr evens = filter(list, &is_even);
+  if (evens->length == 0)
   {
     return Pass;
   }
