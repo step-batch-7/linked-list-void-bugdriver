@@ -20,6 +20,7 @@ int main(void)
 
   describe("insert_at()");
   it("should insert_at given position in list", assert_insert_at());
+  it("should insert_at last position in list", assert_insert_at_last());
   it("should not insert at invalid position", assert_insert_at_wrong_position());
 
   describe("reverse()");
@@ -62,6 +63,10 @@ int main(void)
   describe("reduce()");
   it("should add all the numbers", assert_reduce_sum());
   it("should add numbers along with initial value", assert_reduce_sum_with_initial());
+
+  describe("clear_list()");
+  it("should not clear if list is empty", assert_clear_empty_list());
+  it("should remove all elements from list", assert_clear_list_with_elements());
 
   printf("\nTEST END..............");
   return 0;

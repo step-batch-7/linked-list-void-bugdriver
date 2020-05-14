@@ -77,7 +77,7 @@ Status add_to_start(List_ptr list, Element element)
 Status insert_at(List_ptr list, Element element, int position)
 {
   Node_ptr node = create_node(element);
-  if (node == NULL || list == NULL || position < 0 || position >= list->length + 1)
+  if (node == NULL || list == NULL || position < 0 || position > list->length)
   {
     return Failure;
   }
@@ -85,7 +85,7 @@ Status insert_at(List_ptr list, Element element, int position)
   {
     return add_to_start(list, element);
   }
-  if (position == list->length - 1)
+  if (position == list->length)
   {
     return add_to_list(list, element);
   }
@@ -257,4 +257,22 @@ void forEach(List_ptr list, ElementProcessor processor)
     (*processor)(p_walk->element);
     p_walk = p_walk->next;
   }
+}
+
+Status clear_list(List_ptr list)
+{
+  if (list == NULL)
+  {
+    return Failure;
+  }
+  Node_ptr p_walk = list->first;
+  while (p_walk != NULL)
+  {
+    free(p_walk);
+    p_walk = p_walk->next;
+  }
+  list->first = NULL;
+  list->last = NULL;
+  list->length = 0;
+  return Success;
 }

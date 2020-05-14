@@ -104,6 +104,19 @@ test_status assert_insert_at()
   return Fail;
 }
 
+test_status assert_insert_at_last()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  add_to_list(list, create_int_object(20));
+  Status status = insert_at(list, create_int_object(30), 2);
+  if (cast_to_int(list->last->element) == 30 && status)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
 test_status assert_insert_at_wrong_position()
 {
   List_ptr list = create_list();
@@ -403,6 +416,30 @@ test_status assert_reduce_sum_with_initial()
   add_to_list(list, create_int_object(4));
   Element sum = reduce(list, create_int_object(2), &add_int);
   if (cast_to_int(sum) == 12)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_clear_empty_list()
+{
+  List_ptr list = create_list();
+  clear_list(list);
+  if (list->length == 0)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_clear_list_with_elements()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  add_to_list(list, create_int_object(20));
+  clear_list(list);
+  if (list->length == 0 && list->first == NULL && list->last == NULL)
   {
     return Pass;
   }
