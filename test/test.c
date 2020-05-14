@@ -22,6 +22,10 @@ int main(void)
   it("should insert_at given position in list", assert_insert_at());
   it("should not insert at invalid position", assert_insert_at_wrong_position());
 
+  describe("reverse()");
+  it("should reverse list", assert_reverse_list());
+  it("should reverse empty list", assert_empty_reverse_list());
+
   printf("\nTEST END..............");
   return 0;
 }

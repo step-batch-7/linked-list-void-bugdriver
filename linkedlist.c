@@ -50,6 +50,10 @@ Status add_to_start(List_ptr list, Element element)
   {
     return Failure;
   }
+  if (list->first == NULL)
+  {
+    list->last = node;
+  }
   node->next = list->first;
   list->first = node;
   list->length += 1;
@@ -76,4 +80,16 @@ Status insert_at(List_ptr list, Element element, int position)
   p_walk->next = node;
   list->length += 1;
   return Success;
+}
+
+List_ptr reverse(List_ptr list)
+{
+  List_ptr reversed_list = create_list();
+  Node_ptr p_walk = list->first;
+  while (p_walk != NULL)
+  {
+    add_to_start(reversed_list, p_walk->element);
+    p_walk = p_walk->next;
+  }
+  return reversed_list;
 }

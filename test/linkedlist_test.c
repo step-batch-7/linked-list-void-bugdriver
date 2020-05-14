@@ -96,3 +96,30 @@ test_status assert_insert_at_wrong_position()
   }
   return Fail;
 }
+
+test_status assert_reverse_list()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  add_to_list(list, create_int_object(20));
+  add_to_list(list, create_int_object(30));
+  List_ptr reversed_list = reverse(list);
+  if (cast_to_int(reversed_list->first->element) == 30 &&
+      cast_to_int(reversed_list->first->next->element) == 20 &&
+      cast_to_int(reversed_list->last->element) == 10)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_empty_reverse_list()
+{
+  List_ptr list = create_list();
+  List_ptr reversed_list = reverse(list);
+  if (reversed_list->first == NULL && reversed_list->length == 0)
+  {
+    return Pass;
+  }
+  return Fail;
+}
