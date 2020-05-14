@@ -43,7 +43,14 @@ int main(void)
 
   describe("remove_first_occurrence()");
   it("should remove first occurence of element from middle of the list", assert_remove_first_occurrence());
-  // it("should give null if empty list passed", assert_remove_from_end_empty_list());
+
+  describe("remove_all_occurrences()");
+  it("should remove all occurence of element from the list", assert_remove_all_occurrences());
+  it("should remove all occurence of element from the single element list", assert_remove_all_occurrences_single_element_list());
+
+  describe("add_unique()");
+  it("should not add if number exist in list", assert_add_unique_if_exist());
+  it("should add to end if number doesn't exist in list", assert_add_unique_does_not_exist());
 
   printf("\nTEST END..............");
   return 0;

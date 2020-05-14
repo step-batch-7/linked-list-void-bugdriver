@@ -258,3 +258,60 @@ test_status assert_remove_first_occurrence()
   }
   return Fail;
 }
+
+test_status assert_remove_all_occurrences()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  add_to_list(list, create_int_object(20));
+  add_to_list(list, create_int_object(30));
+  add_to_list(list, create_int_object(20));
+  List_ptr removed_elements = remove_all_occurrences(list, create_int_object(20), &match_int);
+  if (cast_to_int(removed_elements->first->element) == 20 &&
+      cast_to_int(removed_elements->first->next->element) == 20 &&
+      removed_elements->length == 2 &&
+      list->length == 2 &&
+      cast_to_int(list->first->next->element) == 30)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_remove_all_occurrences_single_element_list()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  List_ptr removed_elements = remove_all_occurrences(list, create_int_object(10), &match_int);
+  if (cast_to_int(removed_elements->first->element) == 10 &&
+      removed_elements->length == 1 &&
+      list->length == 0)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_add_unique_if_exist()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  Status status = add_unique(list, create_int_object(10), &match_int);
+  if (list->length == 1 && !status)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_add_unique_does_not_exist()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  Status status = add_unique(list, create_int_object(20), &match_int);
+  if (list->length == 2 && status)
+  {
+    return Pass;
+  }
+  return Fail;
+}

@@ -1,6 +1,20 @@
 #include <stdlib.h>
 #include "linkedlist.h"
 
+int index_of(List_ptr list, Element element, Matcher matcher)
+{
+  Node_ptr p_walk = list->first;
+  for (int index = 0; p_walk != NULL; index++)
+  {
+    if ((*matcher)(p_walk->element, element))
+    {
+      return index;
+    }
+    p_walk = p_walk->next;
+  }
+  return -1;
+}
+
 Node_ptr create_node(Element element)
 {
   Node_ptr node = malloc(sizeof(Node));
@@ -163,16 +177,27 @@ Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
   return NULL;
 }
 
-int index_of(List_ptr list, Element element, Matcher matcher)
+List_ptr remove_all_occurrences(List_ptr list, Element element, Matcher matcher)
 {
-  Node_ptr p_walk = list->first;
-  for (int index = 0; p_walk != NULL; index++)
+  List_ptr removed_elements = create_list();
+  if (index_of(list, element, matcher) == -1)
   {
-    if ((*matcher)(p_walk->element, element))
-    {
-      return index;
-    }
-    p_walk = p_walk->next;
+    return removed_elements;
   }
-  return -1;
+  Element removed_element = remove_first_occurrence(list, element, matcher);
+  while (removed_element != NULL)
+  {
+    add_to_list(removed_elements, removed_element);
+    removed_element = remove_first_occurrence(list, element, matcher);
+  }
+  return removed_elements;
+}
+
+Status add_unique(List_ptr list, Element element, Matcher matcher)
+{
+  if (index_of(list, element, matcher) == -1)
+  {
+    return add_to_list(list, element);
+  }
+  return Failure;
 }
