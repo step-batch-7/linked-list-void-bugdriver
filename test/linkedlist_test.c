@@ -148,3 +148,113 @@ test_status assert_remove_from_start_empty_list()
   }
   return Fail;
 }
+
+test_status assert_remove_from_end()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  add_to_list(list, create_int_object(20));
+  add_to_list(list, create_int_object(30));
+  Element removed_element = remove_from_end(list);
+  if (cast_to_int(removed_element) == 30 && list->length == 2)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_remove_from_end_empty_list()
+{
+  List_ptr list = create_list();
+  Element removed_element = remove_from_end(list);
+  if (removed_element == NULL)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_remove_at()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  add_to_list(list, create_int_object(20));
+  add_to_list(list, create_int_object(30));
+  Element removed_element = remove_at(list, 1);
+  if (cast_to_int(removed_element) == 20 && list->length == 2)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_remove_at_0th_position()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  add_to_list(list, create_int_object(20));
+  add_to_list(list, create_int_object(30));
+  Element removed_element = remove_at(list, 0);
+  if (cast_to_int(removed_element) == 10 && list->length == 2)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_remove_at_last_position()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  add_to_list(list, create_int_object(20));
+  add_to_list(list, create_int_object(30));
+  Element removed_element = remove_at(list, 2);
+  if (cast_to_int(removed_element) == 30 && list->length == 2)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_remove_at_one_element_list()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  Element removed_element = remove_at(list, 0);
+  if (cast_to_int(removed_element) == 10 && list->length == 0)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+test_status assert_remove_at_invalid_position()
+{
+  List_ptr list = create_list();
+  Element element = remove_at(list, 1);
+  if (element == NULL && list->length == 0)
+  {
+    return Pass;
+  }
+  return Fail;
+}
+
+Status match_int(Element element1, Element element2)
+{
+  return cast_to_int(element1) == cast_to_int(element2);
+}
+
+test_status assert_remove_first_occurrence()
+{
+  List_ptr list = create_list();
+  add_to_list(list, create_int_object(10));
+  add_to_list(list, create_int_object(20));
+  add_to_list(list, create_int_object(30));
+  add_to_list(list, create_int_object(20));
+  Element removed_element = remove_first_occurrence(list, create_int_object(20), &match_int);
+  if (cast_to_int(removed_element) == 20 && list->length == 3)
+  {
+    return Pass;
+  }
+  return Fail;
+}

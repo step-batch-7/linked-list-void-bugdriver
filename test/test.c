@@ -30,6 +30,21 @@ int main(void)
   it("should remove from start in list", assert_remove_from_start());
   it("should give null if empty list passed", assert_remove_from_start_empty_list());
 
+  describe("remove_from_end()");
+  it("should remove from end in list", assert_remove_from_end());
+  it("should give null if empty list passed", assert_remove_from_end_empty_list());
+
+  describe("remove_at()");
+  it("should remove from 0th position in list", assert_remove_at_0th_position());
+  it("should remove from middle position in list", assert_remove_at());
+  it("should remove from last position in list", assert_remove_at_last_position());
+  it("should remove only element from list", assert_remove_at_one_element_list());
+  it("should give null if invalid position passed", assert_remove_at_invalid_position());
+
+  describe("remove_first_occurrence()");
+  it("should remove first occurence of element from middle of the list", assert_remove_first_occurrence());
+  // it("should give null if empty list passed", assert_remove_from_end_empty_list());
+
   printf("\nTEST END..............");
   return 0;
 }
